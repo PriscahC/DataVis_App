@@ -1,0 +1,10 @@
+{
+    "name": "DataVis",
+    "description": "Data solutions for research",
+    "repository": "https://github.com/PriscahC/DataVis_App",
+    "port": 3000,
+    "AT": {
+        "username": "",
+        "apiKey": ""
+    }
+}
