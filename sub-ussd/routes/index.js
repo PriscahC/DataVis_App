@@ -2,6 +2,7 @@ const express = require('express');
 const Africastalking = require('africastalking');
 const router = express.Router();
 const config = require('config');
+const mongoose = require('mongoose');
 const saveAsCSV = require('../utils/csv.js');
 
 
@@ -33,6 +34,27 @@ const sendAirtime = async (phoneNumber) => {
 //       alert("Your current location is: " + location);
 //     });
 //   }
+const connectToMongoDB = async () => {
+    try {
+        const mongoDB = await mongoose.connect(config.get('mongodb+srv://Priscila:PriScilla#@cluster1.jp7vkbe.mongodb.net/?retryWrites=true&w=majority'));
+        console.log('MongoDB connected successfully');
+        return mongoDB;
+    } catch (error) {
+        console.trace(error);
+        throw new Error('MongoDB connection failed');
+    }
+};
+
+const saveDataToMongoDB = async (dataVisData) => {
+    const mongoDB = await connectToMongoDB();
+    const dataVisCollection = mongoDB.collection('dataVis');
+    const dataVisDocument = new dataVisCollection({
+        ...dataVisData,
+        date: new Date(),
+    });
+    await dataVisDocument.save();
+    console.log('Data saved to MongoDB successfully');
+};
 
 
 router.get('/', (req, res) => res.send('Hola!'));
@@ -75,7 +97,7 @@ router.post('/', async (req, res) => {
                     date: new Date(),
                 };
                 sendAirtime(phoneNumber);
-                saveAsCSV(dataVisData);
+                saveDataToMongoDB(dataVisData);
                 console.log({ dataVisData });
 
                 response = `END Thank you for joining DataVis. Your Details have been added successfully!`;
