@@ -3,7 +3,7 @@ const Africastalking = require('africastalking');
 const router = express.Router();
 const config = require('config');
 const mongoose = require('mongoose');
-const saveAsCSV = require('../utils/csv.js');
+// const saveAsCSV = require('../utils/csv.js');
 
 
 const AT = Africastalking(config.get('AT')).AIRTIME;
@@ -36,7 +36,7 @@ const sendAirtime = async (phoneNumber) => {
 //   }
 const connectToMongoDB = async () => {
     try {
-        const mongoDB = await mongoose.connect(config.get('mongodb+srv://Priscila:PriScilla#@cluster1.jp7vkbe.mongodb.net/?retryWrites=true&w=majority'));
+        const mongoDB = await mongoose.connect(config.get('mongodb+srv://DataVis:36652394@datavis.oxhgijj.mongodb.net/?retryWrites=true&w=majority'));
         console.log('MongoDB connected successfully');
         return mongoDB;
     } catch (error) {
