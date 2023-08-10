@@ -5,23 +5,23 @@ const config = require('config');
 const saveAsCSV = require('../utils/csv.js');
 
 
-// const AT = Africastalking(config.get('AT')).AIRTIME;
-// console.log(AT);
+const AT = Africastalking(config.get('AT')).AIRTIME;
+console.log(AT);
 
-// const sendAirtime = async (phoneNumber) => {
-//     const output = await AT.send({
-//         maxNumRetry: 1,
-//         recipients: [
-//             {
-//                 phoneNumber: `${phoneNumber}`,
-//                 amount: 10,
-//                 currencyCode: 'KES',
-//             }
-//         ],
-//     });
-//     console.log('phone number', phoneNumber);
-//     console.log({ output });
-// };
+const sendAirtime = async (phoneNumber) => {
+    const output = await AT.send({
+        maxNumRetry: 1,
+        recipients: [
+            {
+                phoneNumber: `${phoneNumber}`,
+                amount: 0.5,
+                currencyCode: 'KES',
+            }
+        ],
+    });
+    console.log('phone number', phoneNumber);
+    console.log({ output });
+};
 // function getLocation() {
 //     navigator.geolocation.getCurrentPosition(function(position) {
 //       const latitude = position.coords.latitude;
@@ -51,7 +51,10 @@ router.post('/', async (req, res) => {
         } else if (text == '1') {
             response = `CON Where are you located?`;
           
-        } else if (text.split('*').length == 2) {
+        } else if (text == '2') {
+            response = 'End Your details have not been added'
+        }
+        else if (text.split('*').length == 2) {
             response = `CON What is your sex?`;
            
         } else if (text.split('*').length == 3) {
@@ -74,7 +77,7 @@ router.post('/', async (req, res) => {
                     sessionId,
                     date: new Date(),
                 };
-                // sendAirtime(phoneNumber);
+                sendAirtime(phoneNumber);
                 saveAsCSV(dataVisData);
                 console.log({ dataVisData });
 
