@@ -18,8 +18,8 @@ const main = async () => {
     app.use(cors());
     app.set('trust proxy', 1); // trust first proxy
 
-    app.use('/', routes).listen(port, () =>
-        console.info(`Listening on ${port}`)
+    app.use('/', routes).listen(3000, () =>
+        console.info(`Listening on 3000`)
     );
 };
 
