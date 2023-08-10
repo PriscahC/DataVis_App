@@ -46,13 +46,10 @@ router.post('/', async (req, res) => {
         if (text == '') {
             response = `CON Welcome to DataVis. We guarantee identity protection. Do you agree to share your Data with us?
             1. Yes
-            2. No
             `;
         } else if (text == '1') {
             response = `CON Where are you located?`;
           
-        } else if (text == '2') {
-            response = 'End Your details have not been added'
         }
         else if (text.split('*').length == 2) {
             response = `CON What is your sex?`;
